@@ -5,15 +5,14 @@ import {
   isSameDay,
   isWithinInterval,
 } from "date-fns";
-import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useReservation } from "./ReservationContext";
 
 function isAlreadyBooked(range, datesArr) {
   return (
-    range.from &&
-    range.to &&
+    range?.from &&
+    range?.to &&
     datesArr.some((date) =>
       isWithinInterval(date, { start: range?.from, end: range?.to })
     )
@@ -40,10 +39,10 @@ function DateSelector({ settings, bookedDates, cabin }) {
         mode="range"
         min={minBookingLength + 1}
         max={maxBookingLength}
-        fromMonth={new Date()}
-        fromDate={new Date()}
-        toYear={new Date().getFullYear() + 5}
-        captionLayout="dropdown"
+        defaultMonth={new Date()} // ✅ replaces fromMonth
+        fromDate={new Date()} // ✅ starting date
+        toDate={new Date(new Date().setFullYear(new Date().getFullYear() + 5))} // ✅ ending date
+        captionLayout="dropdown-years" // ✅ in v9, use "dropdown-years" or "dropdown"
         numberOfMonths={2}
         onSelect={setRange}
         selected={displayRange}
