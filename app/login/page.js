@@ -1,5 +1,5 @@
 import SignInButton from "../_components/SignInButton";
-export const metaData = {
+export const metadata = {
   title: "Login",
 };
 export default function Page() {
